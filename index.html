@@ -23,9 +23,9 @@
     --border:#E4E4DE;
     --text:#181818;
     --text-dim:#6B6E73;
-    --accent:#1F6F5C;
-    --accent-2:#3FA98A;
-    --accent-soft:rgba(31,111,92,0.09);
+    --accent:#1769E0;
+    --accent-2:#4EA1FF;
+    --accent-soft:rgba(23,105,224,0.12);
     --shadow:rgba(24,24,20,0.10);
     --nav-bg:rgba(250,250,248,0.9);
     --radius:10px;
@@ -39,9 +39,9 @@
     --border:#26303C;
     --text:#ECEFF3;
     --text-dim:#8B93A0;
-    --accent:#4CE0B3;
-    --accent-2:#2E9C82;
-    --accent-soft:rgba(76,224,179,0.12);
+    --accent:#55A7FF;
+    --accent-2:#2777D8;
+    --accent-soft:rgba(85,167,255,0.14);
     --shadow:rgba(0,0,0,0.55);
     --nav-bg:rgba(11,15,20,0.85);
   }
@@ -529,6 +529,175 @@
     position:absolute; width:1px; height:1px; padding:0; margin:-1px;
     overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
   }
+
+  /* ---------- Motion / professional interactions ---------- */
+  html{scroll-behavior:smooth; scroll-padding-top:82px;}
+  body{overflow-x:hidden;}
+
+  /* Barra de progreso de desplazamiento */
+  body::before{
+    content:'';
+    position:fixed;
+    z-index:1000;
+    top:0; left:0;
+    width:var(--scroll-progress,0%);
+    height:3px;
+    background:linear-gradient(90deg,#1769E0,#4EA1FF,#8BC7FF);
+    box-shadow:0 0 14px rgba(23,105,224,.7);
+    pointer-events:none;
+    transition:width .08s linear;
+  }
+
+  .hero{
+    animation:heroIn .9s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes heroIn{
+    from{opacity:0;transform:translateY(28px) scale(.985)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+
+  /* Aparición progresiva al entrar en pantalla */
+  .reveal{
+    opacity:0;
+    transform:translateY(34px);
+    transition:
+      opacity .75s cubic-bezier(.22,1,.36,1),
+      transform .75s cubic-bezier(.22,1,.36,1);
+    will-change:opacity,transform;
+  }
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.08s}
+  .reveal-delay-2{transition-delay:.16s}
+  .reveal-delay-3{transition-delay:.24s}
+
+  /* Títulos: subrayado único y animado */
+  .section > h2{
+    position:relative;
+    display:inline-block;
+    padding-bottom:13px;
+    margin-bottom:40px;
+  }
+  .section > h2::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:54px;
+    height:4px;
+    border-radius:999px;
+    background:var(--title-accent,var(--accent));
+    box-shadow:0 0 12px color-mix(in srgb,var(--title-accent,var(--accent)) 35%,transparent);
+    transform-origin:left;
+    transform:scaleX(.45);
+    transition:width .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;
+  }
+  .section > h2:hover::after{width:100%;transform:scaleX(1);box-shadow:0 0 18px color-mix(in srgb,var(--title-accent,var(--accent)) 45%,transparent);}
+  #perfil{--title-accent:#8B5CF6}
+  #habilidades{--title-accent:#0EA5E9}
+  #proyecto{--title-accent:#2563EB}
+  #evidencias{--title-accent:#06B6D4}
+  #formacion{--title-accent:#14B8A6}
+  #proyeccion{--title-accent:#F59E0B}
+  #contacto{--title-accent:#EC4899}
+
+  /* Hover más visible en azul: tarjetas, botones, etiquetas y controles */
+  .panel{
+    position:relative;
+    overflow:hidden;
+    transition:
+      transform .35s cubic-bezier(.22,1,.36,1),
+      box-shadow .35s ease,
+      border-color .35s ease,
+      background .35s ease;
+  }
+  .panel::before{
+    content:'';
+    position:absolute;
+    inset:-2px;
+    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(78,161,255,.09),transparent 30%);
+    opacity:0;
+    transition:opacity .35s ease;
+    pointer-events:none;
+  }
+  .panel:hover{
+    transform:translateY(-7px);
+    box-shadow:0 22px 46px -24px rgba(23,105,224,.34),0 0 0 1px rgba(78,161,255,.12);
+    border-color:rgba(78,161,255,.24);
+  }
+  .panel:hover::before{opacity:1;}
+
+  .btn{
+    position:relative;
+    overflow:hidden;
+    transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s ease,filter .28s ease;
+  }
+  .btn::after{
+    content:'';
+    position:absolute;
+    top:-80%;
+    left:-120%;
+    width:70%;
+    height:260%;
+    transform:rotate(20deg);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+    transition:left .6s ease;
+    pointer-events:none;
+  }
+  .btn:hover{transform:translateY(-3px);filter:saturate(1.12);box-shadow:0 14px 28px -14px rgba(23,105,224,.65);}
+  .btn:hover::after{left:150%;}
+
+  .nav-links a{
+    position:relative;
+    transition:color .25s ease,transform .25s ease;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; right:0; bottom:-4px;
+    height:2px;
+    border-radius:99px;
+    background:linear-gradient(90deg,#1769E0,#4EA1FF);
+    transform:scaleX(0);
+    transform-origin:center;
+    transition:transform .3s cubic-bezier(.22,1,.36,1);
+  }
+  .nav-links a:hover{transform:translateY(-1px);}
+  .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+  .nav-links a.active{color:var(--text);}
+
+  .tag{
+    transition:transform .25s cubic-bezier(.22,1,.36,1),border-color .25s ease,box-shadow .25s ease;
+  }
+  .tag:hover{
+    transform:translateY(-3px);
+    border-color:rgba(78,161,255,.55);
+    box-shadow:0 8px 18px -12px rgba(23,105,224,.7);
+  }
+
+  .avatar-ring{
+    transition:transform .45s cubic-bezier(.22,1,.36,1),filter .45s ease;
+  }
+  .avatar-ring:hover{transform:translateY(-4px) rotate(1deg) scale(1.025);filter:drop-shadow(0 10px 18px rgba(23,105,224,.28));}
+
+  .timeline li{transition:transform .3s ease;}
+  .timeline li:hover{transform:translateX(5px);}
+  .timeline li:hover::before{box-shadow:0 0 0 5px rgba(78,161,255,.13);}
+
+  .goals li{
+    transition:transform .3s ease,padding-left .3s ease;
+  }
+  .goals li:hover{transform:translateX(6px);padding-left:8px;}
+  .goals li:hover .glyph{color:#4EA1FF;}
+
+  .contact-card{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease;}
+  .contact-card:hover{transform:translateY(-5px);}
+
+  /* Evita movimientos excesivos si el usuario los desactiva */
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    .panel:hover,.btn:hover,.avatar-ring:hover,.goals li:hover,.contact-card:hover{transform:none;}
+  }
+
 </style>
 </head>
 <body>
@@ -616,7 +785,7 @@
     </div>
   </section>
 
-  <section id="perfil" class="section">
+  <section id="perfil" class="section reveal">
     <h2>Sobre mí</h2>
     <div class="perfil-grid">
       <p>
@@ -636,7 +805,7 @@
     </div>
   </section>
 
-  <section id="habilidades" class="section alt">
+  <section id="habilidades" class="section alt reveal">
     <h2>Habilidades</h2>
     <div class="skills-columns">
       <div class="skill-group">
@@ -668,7 +837,7 @@
     </div>
   </section>
 
-  <section id="proyecto" class="section">
+  <section id="proyecto" class="section reveal">
     <h2>Proyecto destacado</h2>
     <div class="project-panel panel">
       <div class="project-header">
@@ -695,7 +864,7 @@
     </div>
   </section>
 
-  <section id="evidencias" class="section alt">
+  <section id="evidencias" class="section alt reveal">
     <h2>Evidencias</h2>
     <div class="evidence-grid">
 
@@ -744,7 +913,7 @@
     </div>
   </section>
 
-  <section id="formacion" class="section">
+  <section id="formacion" class="section reveal">
     <h2>Formación</h2>
     <ol class="timeline">
       <li>
@@ -760,7 +929,7 @@
     </ol>
   </section>
 
-  <section id="proyeccion" class="section alt">
+  <section id="proyeccion" class="section alt reveal">
     <h2>Hacia dónde voy</h2>
     <ul class="goals">
       <li>
@@ -778,7 +947,7 @@
     </ul>
   </section>
 
-  <section id="contacto" class="section contact-section">
+  <section id="contacto" class="section contact-section reveal">
     <h2>Contacto</h2>
     <div class="contact-grid">
       <a class="contact-card panel" href="mailto:jj.hoyos@unimayor.edu.co">
@@ -869,6 +1038,53 @@
   wireImageSlot('avatarImg', 'avatarInput', 'avatarNote');
   wireImageSlot('evImg1', 'evInput1', 'evNote1');
   wireImageSlot('evImg2', 'evInput2', 'evNote2');
+
+  // Animaciones al entrar en pantalla + navegación activa + progreso de scroll.
+  const revealItems = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  revealItems.forEach(el => revealObserver.observe(el));
+
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const navAnchors = [...document.querySelectorAll('.nav-links a')];
+  const updateScrollUI = () => {
+    const scrollTop = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    document.body.style.setProperty('--scroll-progress', `${maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0}%`);
+
+    let current = sections[0]?.id || '';
+    sections.forEach(section => {
+      if(scrollTop >= section.offsetTop - 150) current = section.id;
+    });
+    navAnchors.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+    });
+  };
+  let scrollTick = false;
+  window.addEventListener('scroll', () => {
+    if(!scrollTick){
+      requestAnimationFrame(() => { updateScrollUI(); scrollTick = false; });
+      scrollTick = true;
+    }
+  }, {passive:true});
+  window.addEventListener('resize', updateScrollUI);
+  updateScrollUI();
+
+  // Iluminación suave que sigue el puntero sobre superficies interactivas.
+  document.querySelectorAll('.panel').forEach(panel => {
+    panel.addEventListener('pointermove', e => {
+      const r = panel.getBoundingClientRect();
+      panel.style.setProperty('--mx', `${e.clientX-r.left}px`);
+      panel.style.setProperty('--my', `${e.clientY-r.top}px`);
+    });
+  });
+
 </script>
 
 </body>
