@@ -6,7 +6,7 @@
 <title>Janier Jair Hoyos Anacona — Portafolio</title>
 <meta name="description" content="Portafolio de Janier Jair Hoyos Anacona, Tecnólogo en Desarrollo de Software y estudiante de Ingeniería Informática.">
 <script>
-  // Evita el parpadeo de tema: ddecide claro/oscuro antes de pintar la página.
+  // Evita el parpadeo de tema: decide claro/oscuro antes de pintar la página.
   (function(){
     var preferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', preferred);
@@ -421,23 +421,19 @@
   .evidence-desc{ margin:0; color:var(--text-dim); font-size:0.92rem; }
   .evidence-slot{
     position:relative;
-    aspect-ratio:4/3;
-    min-height:200px;
+    aspect-ratio:16/9;
+    min-height:220px;
     border-radius:var(--radius);
     background:var(--surface-2);
     border:1px dashed var(--border);
     overflow:hidden;
   }
-  .evidence-slot img{width:100%; height:100%; object-fit:cover; display:block;}
-  .evidence-slot.empty img{display:none;}
-  .evidence-placeholder{
-    display:none; position:absolute; inset:0;
-    flex-direction:column; align-items:center; justify-content:center; gap:8px;
-    color:var(--text-dim); text-align:center; padding:16px;
+  .evidence-slot iframe, .evidence-slot video{
+    width:100%;
+    height:100%;
+    border:none;
+    display:block;
   }
-  .evidence-slot.empty .evidence-placeholder{display:flex;}
-  .evidence-placeholder svg{width:28px; height:28px; opacity:0.6;}
-  .evidence-placeholder span{font-size:0.82rem;}
   .evidence-controls{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
   .upload-btn{
     display:inline-flex; align-items:center; gap:8px;
@@ -447,6 +443,7 @@
     font-size:0.84rem;
     font-family:'IBM Plex Mono', monospace;
     cursor:pointer;
+    text-decoration:none;
     background-image:
       linear-gradient(var(--surface), var(--surface)),
       linear-gradient(120deg, var(--accent), var(--border) 70%);
@@ -456,7 +453,6 @@
   }
   .upload-btn:hover{color:var(--accent);}
   .evidence-hint{margin:0; font-size:0.76rem; color:var(--text-dim);}
-  .evidence-note{margin:0; font-size:0.78rem; color:var(--accent); min-height:1.1em;}
 
   /* ---------- Formación ---------- */
   .timeline{list-style:none; margin:0; padding:0; max-width:640px;}
@@ -871,46 +867,33 @@
     <h2>Evidencias</h2>
     <div class="evidence-grid">
 
+      <!-- Presentación PPTX -->
       <div class="evidence-card panel">
-        <h3>Actividad 1</h3>
-        <p class="evidence-desc">Agrega aquí una breve descripción de esta actividad o evidencia.</p>
-        <div class="evidence-slot" id="evSlot1">
-          <img src="evidencia-actividad-1.jpg" alt="Evidencia de la actividad 1" id="evImg1"
-               onerror="this.closest('.evidence-slot').classList.add('empty')">
-          <div class="evidence-placeholder" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <rect x="3" y="4" width="18" height="14" rx="2"/><path d="m3 15 5-4 4 3 4-5 5 6"/>
-            </svg>
-            <span>Aún sin evidencia</span>
-          </div>
+        <h3>Actividad 1 - Presentación</h3>
+        <p class="evidence-desc">Presentación interactiva en formato PowerPoint.</p>
+        <div class="evidence-slot">
+          <iframe id="pptxViewer" src="" title="Vista previa Actividad 1"></iframe>
         </div>
         <div class="evidence-controls">
-          <label class="upload-btn" for="evInput1">Subir vista previa</label>
-          <input type="file" id="evInput1" accept="image/*" hidden data-filename="evidencia-actividad-1.jpg">
+          <a class="upload-btn" href="evidencias/Actividad-1.pptx" download>Descargar PPTX</a>
         </div>
-        <p class="evidence-hint">Archivo esperado: <code>evidencia-actividad-1.jpg</code></p>
-        <p class="evidence-note" id="evNote1"></p>
+        <p class="evidence-hint">Archivo: <code>evidencias/Actividad-1.pptx</code></p>
       </div>
 
+      <!-- Video MP4 -->
       <div class="evidence-card panel">
-        <h3>Actividad 2</h3>
-        <p class="evidence-desc">Agrega aquí una breve descripción de esta actividad o evidencia.</p>
-        <div class="evidence-slot" id="evSlot2">
-          <img src="evidencia-actividad-2.jpg" alt="Evidencia de la actividad 2" id="evImg2"
-               onerror="this.closest('.evidence-slot').classList.add('empty')">
-          <div class="evidence-placeholder" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-              <rect x="3" y="4" width="18" height="14" rx="2"/><path d="m3 15 5-4 4 3 4-5 5 6"/>
-            </svg>
-            <span>Aún sin evidencia</span>
-          </div>
+        <h3>Actividad 2 - Video</h3>
+        <p class="evidence-desc">Demostración en video de la actividad realizada.</p>
+        <div class="evidence-slot">
+          <video controls preload="metadata">
+            <source src="evidencias/Actividad-1.mp4" type="video/mp4">
+            Tu navegador no soporta el reproductor de video HTML5.
+          </video>
         </div>
         <div class="evidence-controls">
-          <label class="upload-btn" for="evInput2">Subir vista previa</label>
-          <input type="file" id="evInput2" accept="image/*" hidden data-filename="evidencia-actividad-2.jpg">
+          <a class="upload-btn" href="evidencias/Actividad-1.mp4" download>Descargar MP4</a>
         </div>
-        <p class="evidence-hint">Archivo esperado: <code>evidencia-actividad-2.jpg</code></p>
-        <p class="evidence-note" id="evNote2"></p>
+        <p class="evidence-hint">Archivo: <code>evidencias/Actividad-1.mp4</code></p>
       </div>
 
     </div>
@@ -1009,10 +992,7 @@
     applyThemeLabel();
   });
 
-  // Vista previa local de imágenes (foto de perfil y evidencias).
-  // Esto NO sube el archivo a ningún servidor: solo lo muestra en tu propio
-  // navegador para que veas cómo quedaría. Para que cualquier visitante lo
-  // vea, reemplaza el archivo indicado (mismo nombre) junto a este HTML.
+  // Vista previa local de foto de perfil
   function wireImageSlot(imgId, inputId, noteId){
     const img = document.getElementById(imgId);
     const input = document.getElementById(inputId);
@@ -1028,19 +1008,22 @@
       const reader = new FileReader();
       reader.onload = (ev) => {
         img.src = ev.target.result;
-        img.closest('.avatar-slot, .evidence-slot').classList.remove('empty');
-        if(note){
-          const expected = input.dataset.filename || 'el archivo indicado';
-          note.textContent = 'Vista previa local (solo la ves tú). Para que cualquiera la vea, sube tu archivo con el nombre "' + expected + '" junto a este HTML.';
-        }
+        img.closest('.avatar-slot').classList.remove('empty');
       };
       reader.readAsDataURL(file);
     });
   }
 
   wireImageSlot('avatarImg', 'avatarInput', 'avatarNote');
-  wireImageSlot('evImg1', 'evInput1', 'evNote1');
-  wireImageSlot('evImg2', 'evInput2', 'evNote2');
+
+  // Configuración del visor online para el PPTX una vez desplegado en un servidor web
+  window.addEventListener('DOMContentLoaded', () => {
+    const pptxIframe = document.getElementById('pptxViewer');
+    if (pptxIframe) {
+      const fileUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'evidencias/Actividad-1.pptx';
+      pptxIframe.src = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(fileUrl);
+    }
+  });
 
   // Animaciones al entrar en pantalla + navegación activa + progreso de scroll.
   const revealItems = document.querySelectorAll('.reveal');
